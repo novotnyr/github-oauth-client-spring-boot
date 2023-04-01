@@ -9,7 +9,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-    @GetMapping("/resources")
+    @Autowired
+    @Qualifier("github")
+    private WebClient webClient;
+
+    @GetMapping("/")
     public Map<String, String> getVersion() {
         return Map.of("version", "1.0");
     }

@@ -1,6 +1,5 @@
 package com.github.novotnyr.githuboauthclient;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +12,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-    @Autowired
-    @Qualifier("github")
-    private WebClient webClient;
+    private final WebClient webClient;
+
+    public ApiController(@Qualifier("github") WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     @GetMapping("/")
     public Map<String, String> getVersion() {
